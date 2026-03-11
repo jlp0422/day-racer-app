@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build & Test
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode & available simulators
+        run: |
+          xcodebuild -version
+          xcrun simctl list devices available | grep iPhone | head -10
+
+      - name: Build
+        run: |
+          xcodebuild build \
+            -project DayRacer.xcodeproj \
+            -scheme DayRacer \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -quiet
+
+      - name: Run Unit Tests
+        run: |
+          xcodebuild test \
+            -project DayRacer.xcodeproj \
+            -scheme DayRacer \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -only-testing:DayRacerTests \
+            -quiet
+
+      - name: Run UI Tests
+        run: |
+          xcodebuild test \
+            -project DayRacer.xcodeproj \
+            -scheme DayRacer \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -only-testing:DayRacerUITests \
+            -quiet
