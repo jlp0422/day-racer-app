@@ -37,6 +37,14 @@
 		A10000000000000000000302 /* CatmullRom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000302 /* CatmullRom.swift */; };
 		A10000000000000000000303 /* PathSmoother.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000303 /* PathSmoother.swift */; };
 		A10000000000000000000304 /* PathSmoothingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000304 /* PathSmoothingTests.swift */; };
+		A10000000000000000000401 /* CrashDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000401 /* CrashDetector.swift */; };
+		A10000000000000000000402 /* BoundaryProximityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000402 /* BoundaryProximityChecker.swift */; };
+		A10000000000000000000403 /* CornerScorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000403 /* CornerScorer.swift */; };
+		A10000000000000000000404 /* LapTimeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000404 /* LapTimeCalculator.swift */; };
+		A10000000000000000000405 /* CrashDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000405 /* CrashDetectorTests.swift */; };
+		A10000000000000000000406 /* BoundaryProximityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000406 /* BoundaryProximityTests.swift */; };
+		A10000000000000000000407 /* CornerScorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000407 /* CornerScorerTests.swift */; };
+		A10000000000000000000408 /* LapTimeCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000408 /* LapTimeCalculatorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +95,14 @@
 		B10000000000000000000302 /* CatmullRom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatmullRom.swift; sourceTree = "<group>"; };
 		B10000000000000000000303 /* PathSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathSmoother.swift; sourceTree = "<group>"; };
 		B10000000000000000000304 /* PathSmoothingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathSmoothingTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000401 /* CrashDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDetector.swift; sourceTree = "<group>"; };
+		B10000000000000000000402 /* BoundaryProximityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundaryProximityChecker.swift; sourceTree = "<group>"; };
+		B10000000000000000000403 /* CornerScorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerScorer.swift; sourceTree = "<group>"; };
+		B10000000000000000000404 /* LapTimeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeCalculator.swift; sourceTree = "<group>"; };
+		B10000000000000000000405 /* CrashDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDetectorTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000406 /* BoundaryProximityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundaryProximityTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000407 /* CornerScorerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerScorerTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000408 /* LapTimeCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeCalculatorTests.swift; sourceTree = "<group>"; };
 		F10000000000000000000001 /* DayRacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000002 /* DayRacerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000003 /* DayRacerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +195,10 @@
 		D10000000000000000000041 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				B10000000000000000000402 /* BoundaryProximityChecker.swift */,
+				B10000000000000000000403 /* CornerScorer.swift */,
+				B10000000000000000000401 /* CrashDetector.swift */,
+				B10000000000000000000404 /* LapTimeCalculator.swift */,
 				B10000000000000000000201 /* SeededRandom.swift */,
 				B10000000000000000000202 /* TrackGenerator.swift */,
 			);
@@ -332,7 +352,11 @@
 		D10000000000000000000090 /* DayRacerTests */ = {
 			isa = PBXGroup;
 			children = (
+				B10000000000000000000406 /* BoundaryProximityTests.swift */,
+				B10000000000000000000407 /* CornerScorerTests.swift */,
+				B10000000000000000000405 /* CrashDetectorTests.swift */,
 				B10000000000000000000009 /* GameConstantsTests.swift */,
+				B10000000000000000000408 /* LapTimeCalculatorTests.swift */,
 				B1000000000000000000010B /* ModelTests.swift */,
 				B10000000000000000000304 /* PathSmoothingTests.swift */,
 				B10000000000000000000205 /* TrackGeneratorTests.swift */,
@@ -501,6 +525,10 @@
 				A10000000000000000000301 /* DouglasPeucker.swift in Sources */,
 				A10000000000000000000302 /* CatmullRom.swift in Sources */,
 				A10000000000000000000303 /* PathSmoother.swift in Sources */,
+				A10000000000000000000401 /* CrashDetector.swift in Sources */,
+				A10000000000000000000402 /* BoundaryProximityChecker.swift in Sources */,
+				A10000000000000000000403 /* CornerScorer.swift in Sources */,
+				A10000000000000000000404 /* LapTimeCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +540,10 @@
 				A1000000000000000000010B /* ModelTests.swift in Sources */,
 				A10000000000000000000205 /* TrackGeneratorTests.swift in Sources */,
 				A10000000000000000000304 /* PathSmoothingTests.swift in Sources */,
+				A10000000000000000000405 /* CrashDetectorTests.swift in Sources */,
+				A10000000000000000000406 /* BoundaryProximityTests.swift in Sources */,
+				A10000000000000000000407 /* CornerScorerTests.swift in Sources */,
+				A10000000000000000000408 /* LapTimeCalculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
