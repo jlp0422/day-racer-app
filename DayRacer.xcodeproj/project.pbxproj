@@ -45,6 +45,8 @@
 		A10000000000000000000406 /* BoundaryProximityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000406 /* BoundaryProximityTests.swift */; };
 		A10000000000000000000407 /* CornerScorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000407 /* CornerScorerTests.swift */; };
 		A10000000000000000000408 /* LapTimeCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000408 /* LapTimeCalculatorTests.swift */; };
+		A10000000000000000000409 /* GameStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000409 /* GameStateMachine.swift */; };
+		A1000000000000000000040A /* GameStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000040A /* GameStateMachineTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,8 @@
 		B10000000000000000000406 /* BoundaryProximityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundaryProximityTests.swift; sourceTree = "<group>"; };
 		B10000000000000000000407 /* CornerScorerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerScorerTests.swift; sourceTree = "<group>"; };
 		B10000000000000000000408 /* LapTimeCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeCalculatorTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000409 /* GameStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateMachine.swift; sourceTree = "<group>"; };
+		B1000000000000000000040A /* GameStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateMachineTests.swift; sourceTree = "<group>"; };
 		F10000000000000000000001 /* DayRacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000002 /* DayRacerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000003 /* DayRacerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +202,7 @@
 				B10000000000000000000402 /* BoundaryProximityChecker.swift */,
 				B10000000000000000000403 /* CornerScorer.swift */,
 				B10000000000000000000401 /* CrashDetector.swift */,
+				B10000000000000000000409 /* GameStateMachine.swift */,
 				B10000000000000000000404 /* LapTimeCalculator.swift */,
 				B10000000000000000000201 /* SeededRandom.swift */,
 				B10000000000000000000202 /* TrackGenerator.swift */,
@@ -356,6 +361,7 @@
 				B10000000000000000000407 /* CornerScorerTests.swift */,
 				B10000000000000000000405 /* CrashDetectorTests.swift */,
 				B10000000000000000000009 /* GameConstantsTests.swift */,
+				B1000000000000000000040A /* GameStateMachineTests.swift */,
 				B10000000000000000000408 /* LapTimeCalculatorTests.swift */,
 				B1000000000000000000010B /* ModelTests.swift */,
 				B10000000000000000000304 /* PathSmoothingTests.swift */,
@@ -529,6 +535,7 @@
 				A10000000000000000000402 /* BoundaryProximityChecker.swift in Sources */,
 				A10000000000000000000403 /* CornerScorer.swift in Sources */,
 				A10000000000000000000404 /* LapTimeCalculator.swift in Sources */,
+				A10000000000000000000409 /* GameStateMachine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +551,7 @@
 				A10000000000000000000406 /* BoundaryProximityTests.swift in Sources */,
 				A10000000000000000000407 /* CornerScorerTests.swift in Sources */,
 				A10000000000000000000408 /* LapTimeCalculatorTests.swift in Sources */,
+				A1000000000000000000040A /* GameStateMachineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
