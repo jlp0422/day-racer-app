@@ -5,7 +5,7 @@ enum GameConstants {
     // MARK: - Scoring
 
     enum Scoring {
-        /// Grade thresholds in seconds
+        /// Grade thresholds (average perpendicular distance in canvas points)
         static let fastThreshold: Double = 14.0
         static let averageThreshold: Double = 30.0
         // slow >= 30

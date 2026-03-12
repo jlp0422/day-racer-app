@@ -92,6 +92,7 @@ struct TrackGenerator: Sendable {
             centerline: centerline,
             innerPoints: innerPoints,
             outerPoints: outerPoints,
+            beziers: beziers,
             rng: rng
         )
 
@@ -250,6 +251,7 @@ struct TrackGenerator: Sendable {
         centerline: [CGPoint],
         innerPoints: [CGPoint],
         outerPoints: [CGPoint],
+        beziers: [CubicBezier],
         rng: SeededRandom
     ) -> CornerPath {
         guard centerline.count >= 4 else {
@@ -258,7 +260,7 @@ struct TrackGenerator: Sendable {
                 entryPoint: centerline.first ?? .zero,
                 apexPoints: [],
                 exitPoint: centerline.last ?? .zero,
-                bezierSegments: []
+                bezierSegments: beziers
             )
         }
 
@@ -285,7 +287,7 @@ struct TrackGenerator: Sendable {
             entryPoint: idealPoints.first ?? .zero,
             apexPoints: apexPoints,
             exitPoint: idealPoints.last ?? .zero,
-            bezierSegments: []
+            bezierSegments: beziers
         )
     }
 
