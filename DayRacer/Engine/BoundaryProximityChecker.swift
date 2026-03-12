@@ -2,8 +2,8 @@ import Foundation
 
 enum ProximityLevel: Sendable {
     case safe
-    case warning  // < 8pt
-    case danger   // < 4pt
+    case warning
+    case danger
 }
 
 enum BoundaryProximityChecker {

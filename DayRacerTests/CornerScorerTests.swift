@@ -79,25 +79,43 @@ struct CornerScorerTests {
 
     // MARK: - Penalty Calculation
 
-    @Test("Penalty equals grade penalty × corner weight", arguments: [
-        (CornerType.hairpin, CornerGrade.fast),
-        (.sweeper, .average),
-        (.doubleApex, .slow),
-        (.tight90, .crash),
-    ])
-    func penaltyCalculation(type: CornerType, grade: CornerGrade) {
-        let expected = grade.penalty * type.weight
+    @Test("Crash penalty equals crash penalty × corner weight", arguments: CornerType.allCases)
+    func crashPenaltyCalculation(type: CornerType) {
+        let expected = CornerGrade.crash.penalty * type.weight
         let idealLine = makeIdealLine()
 
-        if grade == .crash {
-            let (_, _, penalty) = CornerScorer.score(
-                smoothedPath: idealLine.points,
-                idealLine: idealLine,
-                cornerType: type,
-                didCrash: true
-            )
-            #expect(abs(penalty - expected) < 0.001)
-        }
+        let (_, _, penalty) = CornerScorer.score(
+            smoothedPath: idealLine.points,
+            idealLine: idealLine,
+            cornerType: type,
+            didCrash: true
+        )
+        #expect(abs(penalty - expected) < 0.001)
+    }
+
+    @Test("Crash deviation is -1 sentinel")
+    func crashDeviationSentinel() {
+        let idealLine = makeIdealLine()
+        let (_, deviation, _) = CornerScorer.score(
+            smoothedPath: idealLine.points,
+            idealLine: idealLine,
+            cornerType: .tight90,
+            didCrash: true
+        )
+        #expect(deviation == -1)
+    }
+
+    @Test("Fast penalty is zero regardless of corner type", arguments: CornerType.allCases)
+    func fastPenaltyIsZero(type: CornerType) {
+        let idealLine = makeIdealLine()
+        let (grade, _, penalty) = CornerScorer.score(
+            smoothedPath: idealLine.points,
+            idealLine: idealLine,
+            cornerType: type,
+            didCrash: false
+        )
+        #expect(grade == .fast)
+        #expect(penalty == 0)
     }
 
     // MARK: - Apex Weighting

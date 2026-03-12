@@ -73,7 +73,7 @@ struct CrashDetectorTests {
 
     // MARK: - Full Detection
 
-    @Test("Path crossing boundary detects crash")
+    @Test("Path crossing boundary detects crash with correct side")
     func pathCrossesBoundary() {
         let boundary = TrackBoundary(
             points: [CGPoint(x: 0, y: 50), CGPoint(x: 100, y: 50)],
@@ -91,6 +91,7 @@ struct CrashDetectorTests {
         #expect(result != nil)
         #expect(abs(result!.crashPoint.x - 50) < 0.01)
         #expect(abs(result!.crashPoint.y - 50) < 0.01)
+        #expect(result!.boundarySide == .outer)
     }
 
     @Test("Path inside boundaries doesn't crash")

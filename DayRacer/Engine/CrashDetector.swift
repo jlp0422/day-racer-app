@@ -2,6 +2,7 @@ import Foundation
 
 struct CrashResult: Sendable {
     let crashPoint: CGPoint
+    let boundarySide: BoundarySide
     let segmentIndex: Int
     let pathPointIndex: Int
 }
@@ -29,9 +30,11 @@ enum CrashDetector {
                 guard aabbOverlap(pathBB, boundarySeg.boundingBox) else { continue }
 
                 if let intersection = lineIntersection(pathSeg, boundarySeg) {
+                    let side: BoundarySide = j < innerCount ? .inner : .outer
                     let boundaryIndex = j < innerCount ? j : j - innerCount
                     return CrashResult(
                         crashPoint: intersection,
+                        boundarySide: side,
                         segmentIndex: boundaryIndex,
                         pathPointIndex: i
                     )

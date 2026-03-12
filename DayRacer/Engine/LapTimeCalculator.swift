@@ -5,20 +5,14 @@ enum LapTimeCalculator {
     /// Base par time (seconds) — represents an "all average" lap.
     static let parTime: Double = 60.0
 
-    /// Calculates total lap time from corner results.
+    /// Calculates total lap time from corner results and their corresponding corner types.
     /// Par time = all average grades. All fast ≈ 3s faster. All crash ≈ 25s slower.
-    static func calculate(cornerResults: [CornerResult]) -> Double {
+    static func calculate(cornerResults: [CornerResult], cornerTypes: [CornerType]) -> Double {
         let totalPenalty = cornerResults.reduce(0.0) { $0 + $1.timePenalty }
-        let baselinePenalty = baselineAveragePenalty(for: cornerResults)
+        let baselinePenalty = cornerTypes.reduce(0.0) { sum, type in
+            sum + GameConstants.Scoring.averagePenalty * type.weight
+        }
         return parTime + (totalPenalty - baselinePenalty)
-    }
-
-    /// Baseline penalty if all corners were "average" — used to center par time.
-    static func baselineAveragePenalty(for cornerResults: [CornerResult]) -> Double {
-        // This would need the corner types to compute properly.
-        // For simplicity, we use a fixed average baseline.
-        // 5 corners × average penalty (0.4) × average weight (~1.2) ≈ 2.4
-        GameConstants.Scoring.averagePenalty * 5.0 * 1.2
     }
 
     /// Convenience: calculate from individual grades and corner types.

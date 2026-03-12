@@ -20,7 +20,7 @@ enum CornerScorer {
     ) -> (grade: CornerGrade, deviationScore: Double, timePenalty: Double) {
         if didCrash {
             let penalty = GameConstants.Scoring.crashPenalty * cornerType.weight
-            return (.crash, 0, penalty)
+            return (.crash, -1, penalty)
         }
 
         guard !smoothedPath.isEmpty, !idealLine.points.isEmpty else {

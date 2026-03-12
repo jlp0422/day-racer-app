@@ -78,4 +78,27 @@ struct LapTimeCalculatorTests {
     func parTimeValue() {
         #expect(LapTimeCalculator.parTime == 60.0)
     }
+
+    @Test("CornerResults overload matches grades overload")
+    func cornerResultsMatchesGrades() {
+        let types: [CornerType] = [.hairpin, .tight90, .chicane, .esses, .sweeper]
+        let grades: [CornerGrade] = [.fast, .average, .slow, .crash, .fast]
+
+        let cornerResults = zip(types, grades).enumerated().map { (i, pair) in
+            let (type, grade) = pair
+            return CornerResult(
+                cornerIndex: i,
+                grade: grade,
+                deviationScore: 10,
+                timePenalty: grade.penalty * type.weight,
+                swipePath: SwipePath(rawPoints: [])
+            )
+        }
+        let gradesInput = zip(grades, types).map { (grade: $0, cornerType: $1) }
+
+        let fromResults = LapTimeCalculator.calculate(cornerResults: cornerResults, cornerTypes: types)
+        let fromGrades = LapTimeCalculator.calculate(grades: gradesInput)
+
+        #expect(abs(fromResults - fromGrades) < 0.001)
+    }
 }
