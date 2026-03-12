@@ -23,7 +23,7 @@ jobs:
           xcodebuild test \
             -project DayRacer.xcodeproj \
             -scheme DayRacer \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -only-testing:DayRacerTests \
             -quiet
 
@@ -38,6 +38,6 @@ jobs:
           xcodebuild test \
             -project DayRacer.xcodeproj \
             -scheme DayRacer \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -only-testing:DayRacerUITests \
             -quiet
