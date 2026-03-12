@@ -27,20 +27,32 @@ struct GameStateMachine: Sendable {
 
     static let cornerCount = 5
 
-    // MARK: - Transition
+    // MARK: - Errors
 
     enum TransitionError: Error, Equatable {
         case invalidTransition(from: GameState, event: String)
+        case cornerIndexMismatch(expected: Int, got: Int)
     }
+
+    // MARK: - Transition
 
     /// Process an event and transition to the next valid state.
     /// Throws `TransitionError.invalidTransition` if the event is not valid for the current state.
+    /// Throws `TransitionError.cornerIndexMismatch` if a result's cornerIndex doesn't match.
     @discardableResult
     mutating func send(_ event: GameEvent) throws -> GameState {
+        try validateCornerIndex(for: event)
         let newState = try nextState(for: event)
         state = newState
         applyEffects(for: event)
-        return newState
+
+        // Auto-chain: finished computes lap time and immediately transitions to results
+        if state == .finished {
+            computeLapTime()
+            state = .results
+        }
+
+        return state
     }
 
     // MARK: - Valid Transitions
@@ -81,10 +93,6 @@ struct GameStateMachine: Sendable {
                 return .autodriving
             }
 
-        case (.finished, _):
-            // finished auto-transitions to results; accept dismiss as well
-            return .results
-
         case (.results, .dismiss):
             return .idle
 
@@ -93,6 +101,27 @@ struct GameStateMachine: Sendable {
                 from: state,
                 event: String(describing: event)
             )
+        }
+    }
+
+    // MARK: - Validation
+
+    private func validateCornerIndex(for event: GameEvent) throws {
+        switch event {
+        case .finishedDrawing(let result):
+            guard result.cornerIndex == currentCornerIndex else {
+                throw TransitionError.cornerIndexMismatch(
+                    expected: currentCornerIndex, got: result.cornerIndex
+                )
+            }
+        case .crashDetected(let result):
+            guard result.cornerIndex == currentCornerIndex else {
+                throw TransitionError.cornerIndexMismatch(
+                    expected: currentCornerIndex, got: result.cornerIndex
+                )
+            }
+        default:
+            break
         }
     }
 
@@ -109,11 +138,15 @@ struct GameStateMachine: Sendable {
         case .finishedDrawing(let result), .crashDetected(let result):
             cornerResults.append(result)
 
-        case .postCornerComplete where state == .autodriving:
-            // Only increment when advancing to next corner (not when going to finished)
-            currentCornerIndex += 1
+        case .postCornerComplete:
+            // Increment corner index when moving to next corner.
+            // When going to finished (last corner), index stays — it's no longer used.
+            if state == .autodriving {
+                currentCornerIndex += 1
+            }
 
-        case .dismiss:
+        case .dismiss where state == .idle:
+            // Only reset when actually returning to idle (results → idle)
             generatedTrack = nil
             currentCornerIndex = 0
             cornerResults = []
@@ -121,11 +154,6 @@ struct GameStateMachine: Sendable {
 
         default:
             break
-        }
-
-        // Auto-compute lap time when entering finished
-        if state == .finished {
-            computeLapTime()
         }
     }
 
@@ -166,7 +194,7 @@ struct GameStateMachine: Sendable {
         case .evaluating: return ["gradeCardComplete"]
         case .carPlayback: return ["carPlaybackComplete"]
         case .postCorner: return ["postCornerComplete"]
-        case .finished: return ["(auto-transition to results)"]
+        case .finished: return ["(auto-transitions to results)"]
         case .results: return ["dismiss"]
         }
     }

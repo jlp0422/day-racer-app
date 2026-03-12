@@ -22,7 +22,7 @@ struct GameStateMachineTests {
         )
     }
 
-    /// Advance a fresh state machine through a full corner cycle (autodrive → swipe → evaluate → playback → post)
+    /// Advance a state machine through a full corner cycle (autodrive → swipe → evaluate → playback → post)
     private func advanceThroughCorner(
         _ sm: inout GameStateMachine,
         index: Int,
@@ -190,7 +190,7 @@ struct GameStateMachineTests {
 
     // MARK: - Full Game Loop
 
-    @Test("Complete 5-corner game reaches finished then results")
+    @Test("Complete 5-corner game auto-transitions to results with lap time")
     func fullGameLoop() throws {
         var sm = GameStateMachine()
         try sm.send(.startRace)
@@ -203,7 +203,7 @@ struct GameStateMachineTests {
             #expect(sm.currentCornerIndex == i + 1)
         }
 
-        // Corner 4 (last): should go to finished
+        // Corner 4 (last): should auto-chain finished → results
         try sm.send(.reachedCorner)
         try sm.send(.beganDrawing)
         let result = makeCornerResult(index: 4)
@@ -211,24 +211,9 @@ struct GameStateMachineTests {
         try sm.send(.gradeCardComplete)
         try sm.send(.carPlaybackComplete)
         let postState = try sm.send(.postCornerComplete)
-        #expect(postState == .finished)
+        #expect(postState == .results)
         #expect(sm.cornerResults.count == 5)
         #expect(sm.lapTime != nil)
-    }
-
-    @Test("finished auto-transitions to results on any event")
-    func finishedToResults() throws {
-        var sm = GameStateMachine()
-        try sm.send(.startRace)
-        try sm.send(.trackReady(makeTrack()))
-        for i in 0..<4 {
-            try advanceThroughCorner(&sm, index: i)
-        }
-        try advanceThroughCorner(&sm, index: 4)
-        // State should be finished, send dismiss to get to results
-        #expect(sm.state == .finished)
-        let newState = try sm.send(.dismiss)
-        #expect(newState == .results)
     }
 
     @Test("results → idle via dismiss")
@@ -240,16 +225,16 @@ struct GameStateMachineTests {
             try advanceThroughCorner(&sm, index: i)
         }
         try advanceThroughCorner(&sm, index: 4)
-        #expect(sm.state == .finished)
-        try sm.send(.dismiss) // finished → results
-        let newState = try sm.send(.dismiss) // results → idle
+        #expect(sm.state == .results)
+        #expect(sm.lapTime != nil)
+        let newState = try sm.send(.dismiss)
         #expect(newState == .idle)
         #expect(sm.generatedTrack == nil)
         #expect(sm.cornerResults.isEmpty)
         #expect(sm.lapTime == nil)
     }
 
-    @Test("Lap time is computed when reaching finished state")
+    @Test("Lap time is computed when reaching results state")
     func lapTimeComputed() throws {
         var sm = GameStateMachine()
         try sm.send(.startRace)
@@ -258,7 +243,7 @@ struct GameStateMachineTests {
             try advanceThroughCorner(&sm, index: i)
         }
         try advanceThroughCorner(&sm, index: 4)
-        #expect(sm.state == .finished)
+        #expect(sm.state == .results)
         #expect(sm.lapTime != nil)
         #expect(sm.lapTime! > 0)
     }
@@ -282,7 +267,7 @@ struct GameStateMachineTests {
         // Corner 4: fast
         try advanceThroughCorner(&sm, index: 4, grade: .fast)
 
-        #expect(sm.state == .finished)
+        #expect(sm.state == .results)
         #expect(sm.cornerResults.count == 5)
         #expect(sm.lapTime != nil)
         // Should be above par (60s) due to crash and slow grades
@@ -363,6 +348,62 @@ struct GameStateMachineTests {
         }
     }
 
+    @Test("startRace from results state throws (must dismiss first)")
+    func startRaceFromResults() throws {
+        var sm = GameStateMachine()
+        try sm.send(.startRace)
+        try sm.send(.trackReady(makeTrack()))
+        for i in 0..<4 {
+            try advanceThroughCorner(&sm, index: i)
+        }
+        try advanceThroughCorner(&sm, index: 4)
+        #expect(sm.state == .results)
+        #expect(throws: GameStateMachine.TransitionError.self) {
+            try sm.send(.startRace)
+        }
+    }
+
+    // MARK: - Corner Index Validation
+
+    @Test("finishedDrawing with wrong corner index throws")
+    func wrongCornerIndexOnFinish() throws {
+        var sm = GameStateMachine()
+        try sm.send(.startRace)
+        try sm.send(.trackReady(makeTrack()))
+        try sm.send(.reachedCorner)
+        try sm.send(.beganDrawing)
+        // We're at corner 0, but pass index 3
+        #expect(throws: GameStateMachine.TransitionError.self) {
+            try sm.send(.finishedDrawing(makeCornerResult(index: 3)))
+        }
+    }
+
+    @Test("crashDetected with wrong corner index throws")
+    func wrongCornerIndexOnCrash() throws {
+        var sm = GameStateMachine()
+        try sm.send(.startRace)
+        try sm.send(.trackReady(makeTrack()))
+        try sm.send(.reachedCorner)
+        try sm.send(.beganDrawing)
+        // We're at corner 0, but pass index 2
+        #expect(throws: GameStateMachine.TransitionError.self) {
+            try sm.send(.crashDetected(makeCornerResult(index: 2, grade: .crash)))
+        }
+    }
+
+    @Test("Corner index validation passes with correct index at each corner")
+    func correctCornerIndexThroughGame() throws {
+        var sm = GameStateMachine()
+        try sm.send(.startRace)
+        try sm.send(.trackReady(makeTrack()))
+        // Each advanceThroughCorner passes the matching index — should not throw
+        for i in 0..<4 {
+            try advanceThroughCorner(&sm, index: i)
+        }
+        try advanceThroughCorner(&sm, index: 4)
+        #expect(sm.state == .results)
+    }
+
     // MARK: - Corner Tracking
 
     @Test("Corner index increments correctly through game")
@@ -431,23 +472,42 @@ struct GameStateMachineTests {
 
     // MARK: - Reset on New Game
 
+    @Test("dismiss resets all state when returning to idle")
+    func dismissResetsState() throws {
+        var sm = GameStateMachine()
+        try sm.send(.startRace)
+        try sm.send(.trackReady(makeTrack()))
+        for i in 0..<4 {
+            try advanceThroughCorner(&sm, index: i)
+        }
+        try advanceThroughCorner(&sm, index: 4)
+        #expect(sm.state == .results)
+        #expect(sm.lapTime != nil)
+        #expect(sm.cornerResults.count == 5)
+
+        try sm.send(.dismiss)
+        #expect(sm.state == .idle)
+        #expect(sm.generatedTrack == nil)
+        #expect(sm.cornerResults.isEmpty)
+        #expect(sm.lapTime == nil)
+        #expect(sm.currentCornerIndex == 0)
+    }
+
     @Test("trackReady resets state for new game")
     func trackReadyResetsState() throws {
         var sm = GameStateMachine()
         try sm.send(.startRace)
         try sm.send(.trackReady(makeTrack()))
-        // Play through some corners
         try advanceThroughCorner(&sm, index: 0)
         try advanceThroughCorner(&sm, index: 1)
         #expect(sm.cornerResults.count == 2)
         #expect(sm.currentCornerIndex == 2)
 
-        // Complete game, go to results, dismiss, start new game
+        // Complete game, dismiss, start new game
         try advanceThroughCorner(&sm, index: 2)
         try advanceThroughCorner(&sm, index: 3)
         try advanceThroughCorner(&sm, index: 4)
-        try sm.send(.dismiss) // finished → results
-        try sm.send(.dismiss) // results → idle
+        try sm.send(.dismiss)
         try sm.send(.startRace)
         try sm.send(.trackReady(makeTrack()))
 
@@ -477,7 +537,7 @@ struct GameStateMachineTests {
         #expect(sm.validEvents.contains("crashDetected"))
     }
 
-    // MARK: - All Fast Lap Time
+    // MARK: - Lap Time
 
     @Test("All-fast game produces lap time below par")
     func allFastLapTime() throws {
@@ -501,5 +561,22 @@ struct GameStateMachineTests {
         }
         try advanceThroughCorner(&sm, index: 4, grade: .crash, crashed: true)
         #expect(sm.lapTime! > LapTimeCalculator.parTime + 10)
+    }
+
+    @Test("Lap time persists in results state until dismiss")
+    func lapTimePersistsInResults() throws {
+        var sm = GameStateMachine()
+        try sm.send(.startRace)
+        try sm.send(.trackReady(makeTrack()))
+        for i in 0..<4 {
+            try advanceThroughCorner(&sm, index: i)
+        }
+        try advanceThroughCorner(&sm, index: 4)
+        #expect(sm.state == .results)
+        let lapTime = sm.lapTime
+        #expect(lapTime != nil)
+        // Lap time should still be available for display
+        #expect(sm.lapTime == lapTime)
+        #expect(sm.cornerResults.count == 5)
     }
 }
