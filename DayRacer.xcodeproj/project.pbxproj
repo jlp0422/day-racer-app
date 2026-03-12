@@ -17,6 +17,17 @@
 		A10000000000000000000008 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* Preview Assets.xcassets */; };
 		A10000000000000000000009 /* GameConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* GameConstantsTests.swift */; };
 		A1000000000000000000000A /* DayRacerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* DayRacerUITests.swift */; };
+		A10000000000000000000101 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000101 /* Geometry.swift */; };
+		A10000000000000000000102 /* TrackBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000102 /* TrackBoundary.swift */; };
+		A10000000000000000000103 /* CornerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000103 /* CornerPath.swift */; };
+		A10000000000000000000104 /* SwipePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000104 /* SwipePath.swift */; };
+		A10000000000000000000105 /* CornerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000105 /* CornerResult.swift */; };
+		A10000000000000000000106 /* RaceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000106 /* RaceResult.swift */; };
+		A10000000000000000000107 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000107 /* User.swift */; };
+		A10000000000000000000108 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000108 /* Friendship.swift */; };
+		A10000000000000000000109 /* LeaderboardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000109 /* LeaderboardEntry.swift */; };
+		A1000000000000000000010A /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010A /* GameState.swift */; };
+		A1000000000000000000010B /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010B /* ModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +58,17 @@
 		B10000000000000000000008 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B10000000000000000000009 /* GameConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstantsTests.swift; sourceTree = "<group>"; };
 		B1000000000000000000000A /* DayRacerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRacerUITests.swift; sourceTree = "<group>"; };
+		B10000000000000000000101 /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		B10000000000000000000102 /* TrackBoundary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackBoundary.swift; sourceTree = "<group>"; };
+		B10000000000000000000103 /* CornerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerPath.swift; sourceTree = "<group>"; };
+		B10000000000000000000104 /* SwipePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePath.swift; sourceTree = "<group>"; };
+		B10000000000000000000105 /* CornerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerResult.swift; sourceTree = "<group>"; };
+		B10000000000000000000106 /* RaceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResult.swift; sourceTree = "<group>"; };
+		B10000000000000000000107 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B10000000000000000000108 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
+		B10000000000000000000109 /* LeaderboardEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardEntry.swift; sourceTree = "<group>"; };
+		B1000000000000000000010A /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		B1000000000000000000010B /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		F10000000000000000000001 /* DayRacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000002 /* DayRacerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000003 /* DayRacerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,7 +211,17 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000005 /* Corner.swift */,
+				B10000000000000000000103 /* CornerPath.swift */,
+				B10000000000000000000105 /* CornerResult.swift */,
+				B10000000000000000000108 /* Friendship.swift */,
+				B1000000000000000000010A /* GameState.swift */,
+				B10000000000000000000101 /* Geometry.swift */,
+				B10000000000000000000109 /* LeaderboardEntry.swift */,
+				B10000000000000000000106 /* RaceResult.swift */,
+				B10000000000000000000104 /* SwipePath.swift */,
 				B10000000000000000000006 /* Track.swift */,
+				B10000000000000000000102 /* TrackBoundary.swift */,
+				B10000000000000000000107 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000009 /* GameConstantsTests.swift */,
+				B1000000000000000000010B /* ModelTests.swift */,
 			);
 			path = DayRacerTests;
 			sourceTree = "<group>";
@@ -424,6 +457,16 @@
 				A10000000000000000000004 /* AppError.swift in Sources */,
 				A10000000000000000000005 /* Corner.swift in Sources */,
 				A10000000000000000000006 /* Track.swift in Sources */,
+				A10000000000000000000101 /* Geometry.swift in Sources */,
+				A10000000000000000000102 /* TrackBoundary.swift in Sources */,
+				A10000000000000000000103 /* CornerPath.swift in Sources */,
+				A10000000000000000000104 /* SwipePath.swift in Sources */,
+				A10000000000000000000105 /* CornerResult.swift in Sources */,
+				A10000000000000000000106 /* RaceResult.swift in Sources */,
+				A10000000000000000000107 /* User.swift in Sources */,
+				A10000000000000000000108 /* Friendship.swift in Sources */,
+				A10000000000000000000109 /* LeaderboardEntry.swift in Sources */,
+				A1000000000000000000010A /* GameState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000000000000000000009 /* GameConstantsTests.swift in Sources */,
+				A1000000000000000000010B /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
