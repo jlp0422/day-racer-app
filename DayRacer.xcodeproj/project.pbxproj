@@ -47,6 +47,8 @@
 		A10000000000000000000408 /* LapTimeCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000408 /* LapTimeCalculatorTests.swift */; };
 		A10000000000000000000409 /* GameStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000409 /* GameStateMachine.swift */; };
 		A1000000000000000000040A /* GameStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000040A /* GameStateMachineTests.swift */; };
+		A10000000000000000000501 /* TrackRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000501 /* TrackRenderer.swift */; };
+		A10000000000000000000502 /* TrackCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000502 /* TrackCanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,8 @@
 		B10000000000000000000408 /* LapTimeCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapTimeCalculatorTests.swift; sourceTree = "<group>"; };
 		B10000000000000000000409 /* GameStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateMachine.swift; sourceTree = "<group>"; };
 		B1000000000000000000040A /* GameStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateMachineTests.swift; sourceTree = "<group>"; };
+		B10000000000000000000501 /* TrackRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRenderer.swift; sourceTree = "<group>"; };
+		B10000000000000000000502 /* TrackCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCanvasView.swift; sourceTree = "<group>"; };
 		F10000000000000000000001 /* DayRacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayRacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000002 /* DayRacerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10000000000000000000003 /* DayRacerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DayRacerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,6 +227,8 @@
 		D10000000000000000000043 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
+				B10000000000000000000502 /* TrackCanvasView.swift */,
+				B10000000000000000000501 /* TrackRenderer.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -536,6 +542,8 @@
 				A10000000000000000000403 /* CornerScorer.swift in Sources */,
 				A10000000000000000000404 /* LapTimeCalculator.swift in Sources */,
 				A10000000000000000000409 /* GameStateMachine.swift in Sources */,
+				A10000000000000000000501 /* TrackRenderer.swift in Sources */,
+				A10000000000000000000502 /* TrackCanvasView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

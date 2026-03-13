@@ -46,7 +46,7 @@ enum CornerType: String, Codable, CaseIterable, Sendable {
         case .hairpin: return 2
         case .doubleApex: return 2
         case .tight90: return 1
-        case .chicane: return 2
+        case .chicane: return 3
         case .esses: return 3
         case .sweeper: return 1
         }

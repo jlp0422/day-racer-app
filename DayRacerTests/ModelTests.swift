@@ -39,7 +39,7 @@ struct CornerTypeTests {
         (CornerType.hairpin, 2),
         (.doubleApex, 2),
         (.tight90, 1),
-        (.chicane, 2),
+        (.chicane, 3),
         (.esses, 3),
         (.sweeper, 1),
     ])
