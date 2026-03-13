@@ -54,9 +54,9 @@ enum CornerType: String, Codable, CaseIterable, Sendable {
 
     var barrierStyle: BarrierStyle {
         switch self {
-        case .hairpin, .tight90, .doubleApex: return .tireStack
-        case .chicane, .esses: return .concrete
-        case .sweeper: return .armco
+        case .hairpin, .doubleApex: return .tireStack
+        case .tight90, .esses: return .concrete
+        case .chicane, .sweeper: return .armco
         }
     }
 }
